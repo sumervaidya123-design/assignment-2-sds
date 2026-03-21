@@ -10,16 +10,87 @@ const clearbutton = document.getElementById("clearCanvas");
 let isDrawing = false;
 let lastX = 0;
 let lastY = 0;
+let history = [];
+let historyIndex = -1;
+const maxhistory = 50;
 
-clearbutton.addEventListener("click", () => {            // FIX: clear button was never wired up
+
+const initHistory = () => {
+    history.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+    historyIndex = 0;
+};
+
+
+const saveHistory = () => {
+    history = history.slice(0, historyIndex + 1);
+    history.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+    if (history.length > maxhistory){
+        history.shift();
+    }else{
+        historyIndex++;
+    }
+
+    if(historyIndex >= history.length){
+        historyIndex = history.length -1;
+    }
+};
+
+const applyHistory = () => {
+    if(history[historyIndex]){
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.putImageData(history[historyIndex], 0, 0);
+    }
+};
+
+const stepHistory = (direction) => {
+    const newIndex = historyIndex + direction;
+    if(newIndex >= 0 && newIndex < history.length){
+        historyIndex = newIndex;
+        applyHistory();
+    }
+};
+
+const undo = () => {
+    if (historyIndex > 0) {
+        historyIndex--;
+        applyHistory();
+    }
+};
+
+const redo = () => {
+    if (historyIndex < history.length - 1) {
+        historyIndex++;
+        applyHistory();
+    }
+};
+
+document.addEventListener("keydown", (e) => {
+    const ctrlOrCmd = e.ctrlKey || e.metaKey;
+    if(ctrlOrCmd && e.key.toLowerCase() === "z"){              /* ctrl z undo*/ 
+        e.preventDefault();
+        undo();
+    }
+    if(ctrlOrCmd && e.key.toLowerCase() === "x"){               /* ctrl x redo*/ 
+        e.preventDefault();
+        redo();
+    }
+});
+
+
+
+
+clearbutton.addEventListener("click", () => {            /*clear all*/
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    saveHistory();
 });
 
 const resizeCanvas = () => {
     const imageData = ctx.getImageData(0,0, canvas.width, canvas.height);
     canvas.width = canvas.clientWidth;
-    canvas.height = canvas.clientHeight;
+    canvas.height = canvas.clientHeight;           /*retain drawing after resizing */
     ctx.putImageData(imageData, 0, 0);
+    if (history.length === 0) initHistory();
+
 };
 window.addEventListener("resize", resizeCanvas);
 resizeCanvas();
@@ -30,7 +101,7 @@ resizeCanvas();
 dayChange.addEventListener("click", () => {
     document.body.classList.toggle("dark-mode");
     const icon = dayChange.querySelector("i");
-    icon.classList.toggle("fa-moon");
+    icon.classList.toggle("fa-moon");                           /*dark mode*/
     icon.classList.toggle("fa-sun");
     if (document.body.classList.contains("dark-mode")) {
         localStorage.setItem("theme", "dark-mode");
@@ -58,7 +129,7 @@ fullscreen.addEventListener("click", toggleFullscreen);
 
 document.addEventListener("fullscreenchange", () => {
     if (fullscreenIcon) {
-        fullscreenIcon.classList.toggle("fa-expand");
+        fullscreenIcon.classList.toggle("fa-expand");                /*fullscreeen button*/
         fullscreenIcon.classList.toggle("fa-compress");
     }
     resizeCanvas(); 
@@ -68,8 +139,8 @@ document.addEventListener("fullscreenchange", () => {
 const startDrawing = (e) => {
     isDrawing = true;
     [lastX, lastY] = [e.offsetX, e.offsetY];
-};
-
+};                                                       /*drawing */
+                                                        
 const draw = (e) => {
     if (!isDrawing) return;
 
@@ -95,9 +166,9 @@ const stopDrawing = () => {
 
 canvas.addEventListener("mousedown", startDrawing);
 canvas.addEventListener("mousemove", draw);
-canvas.addEventListener("mouseup", stopDrawing);
+canvas.addEventListener("mouseup", () => {
+    isDrawing = false; 
+    saveHistory();
+});
 canvas.addEventListener("mouseleave", stopDrawing);
 
-clearbutton.addEventListener("click", () => {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-});
