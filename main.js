@@ -6,6 +6,9 @@ const dayChange = document.getElementById("dayChange");
 const fullscreen = document.getElementById("fullscreen");
 const fullscreenIcon = document.getElementById("fullScreenIcon");
 const clearbutton = document.getElementById("clearCanvas");
+const addImageBtn = document.getElementById("addRandomImage");
+
+
 
 let isDrawing = false;
 let lastX = 0;
@@ -184,6 +187,7 @@ const draw = (e) => {
 };
 
 const drawRect = (e) => {
+
     ctx.strokeRect(lastX, lastY, e.offsetX - lastX, e.offsetY - lastY);
 };
 
@@ -208,6 +212,29 @@ const stopDrawing = () => {
     ctx.beginPath(); 
 };
 
+
+const addRandomImage = () =>{
+    const img = new Image();
+
+    img.crossOrigin = "anonymous";
+
+    img.src = `https://picsum.photos/400/400?random=${Date.now()}`;
+
+    img.onload = () => {
+
+        const x = (canvas.width / 2) - (img.width / 2);
+        const y = (canvas.height / 2) - (img.height / 2);
+
+        ctx.drawImage(img, x, y);
+        saveHistory(); 
+        localStorage.setItem("savedDrawBoyCanvas", canvas.toDataURL());
+    };
+    img.onerror = () => {
+        console.error("Failed to load random image.");
+    };
+};
+
+addImageBtn.addEventListener("click", addRandomImage);
 
 canvas.addEventListener("mousedown", startDrawing);
 canvas.addEventListener("mousemove", draw);
