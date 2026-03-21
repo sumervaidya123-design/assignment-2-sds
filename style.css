@@ -1,0 +1,209 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+    --bg-image-dark: url("images/backgroundTree.jpg");
+    --text-color-dark: #fff;
+    --border-color-dark: #3a414c;
+    --surface-color-dark: black;
+
+
+    --bg-image-light: url("images/treeInverse.jpg");
+    --text-color-light: #000;
+    --border-color-light: #e5efff;
+    --surface-color-light: white ;
+
+
+    --bg-image: var(--bg-image-light);
+    --border-color: var(--border-color-light);
+    --text-color: var(--text-color-light);
+    --surface-color: var(--surface-color-light);
+    --transition-speed: 0.4s;
+}
+
+body.dark-mode {
+    --bg-image: var(--bg-image-dark);
+    --text-color: var(--text-color-dark);
+    --border-color: var(--border-color-dark);
+    --surface-color: var(--surface-color-dark);
+}
+
+
+* {
+box-sizing: border-box;
+}
+
+body {
+font-family: "Roboto", sans-serif;
+display: flex;
+flex-direction: column;
+align-items: center;
+min-height: 100vh;
+margin: 0;
+padding: 1.25rem;
+ background-image: var(--bg-image);
+ background-size: cover;
+ background-position: center;
+ background-repeat: no-repeat;
+
+ color: var(--text-color);
+ transition: background-image var(--transition-speed), color var(--transition-speed);  ;
+
+}
+
+.top-bar{
+    display: flex;
+    position: relative;
+    align-items: center;
+    gap: 2.5rem;
+    backdrop-filter: blur(0.1rem);
+     border-radius: 12px;
+     width: 100%;
+    max-width: 56.25rem;
+}
+
+h1{
+    
+    margin: 0;
+    font-weight: 300;
+    font-size: 1.8rem;
+    margin-top: 0;
+    margin-bottom: 1.25rem;
+}
+
+.toolbar{
+    
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    margin-bottom: 1.25rem;
+}
+
+.tool-group{
+    display: flex;
+    gap: 1rem;
+    padding: 0.625rem 1.25rem;
+    border-radius: 1.1rem;
+    background: linear-gradient(0deg, rgba(255, 255, 255, 0.20) 0%, rgba(153, 153, 153, 0.20) 100%);
+    box-shadow: 2px 2px 4px 5px rgba(0, 0, 0, 0.04) inset;
+    border:1px solid var(--border-color);
+    transition: background-color var(--transition-speed), border-color var(--transition-speed);
+
+}
+
+.tool {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem; 
+    align-items: center;       
+}
+
+.tool label{
+
+    font-size: 0.875rem;
+    font-weight: 400;
+}
+
+input[type ="color"]{
+    -webkit-appearance: none;
+    appearance: none;
+    width: 2.2rem;
+    height: 1.2rem;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    background-color: transparent;
+    border: 0.2rem solid var(--border-color);
+    transition: border-color var(--transition-speed), transform 0.2s;
+
+}
+
+input[type="color"]:hover{
+transform: scale(1.1);
+}
+
+input[type="color"]::-webkit-color-swatch-wrapper{
+    padding: 0;
+
+}
+
+
+
+
+
+
+
+#fullscreen:hover,
+#dayChange:hover{
+    background-color: blue;
+    color: white;
+
+}
+
+#clearCanvas:hover{
+    background-color: red;
+    color: white;
+}
+
+#brush:hover, #rect:hover, 
+#circle:hover, #triangle:hover{
+    background-color: rgb(242, 218, 0);
+    color: rgb(0, 0, 0);
+}
+
+#drawingSpace{
+    background-color: var(--surface-color);
+    cursor: crosshair;
+    width: 85vw;
+    height: 40vw;
+    border-radius: 1.2rem;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+    transition: background-color var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+body:fullscreen{
+     padding: 0;
+     overflow: hidden;
+
+}
+
+body:fullscreen h1{
+    display: none;
+}
+
+body:fullscreen #drawingSpace{
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+}
+
+
+body:fullscreen .toolbar{
+    position: fixed;
+    top: 50%;
+    right: 1rem;
+    transform: translateY(-50%);
+    flex-direction: column;
+
+}
+
+body:fullscreen .tool-group {
+    flex-direction: column;
+}
+
+body:fullscreen .tool label{
+    display:none;
+
+}
+
+body:fullscreen input[type="range"]{
+    transform: rotate(-90deg);
+}
+
+
+body:fullscreen .brush-slider{
+    display: flex;
+    flex-direction: column; 
+}
+
