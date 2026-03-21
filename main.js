@@ -13,6 +13,10 @@ let lastY = 0;
 let history = [];
 let historyIndex = -1;
 const maxhistory = 50;
+let currentTool = "brush";
+let snapshot;
+
+
 
 
 const initHistory = () => {
@@ -139,23 +143,64 @@ document.addEventListener("fullscreenchange", () => {
 const startDrawing = (e) => {
     isDrawing = true;
     [lastX, lastY] = [e.offsetX, e.offsetY];
-};                                                       /*drawing */
+    snapshot = ctx.getImageData(0, 0, canvas.width, canvas.height);      /*drawing */
+    ctx.beginPath();
+};                                                      
                                                         
 const draw = (e) => {
     if (!isDrawing) return;
+
+    if(currentTool !== "brush"){
+        ctx.putImageData(snapshot, 0, 0);
+    }
 
     ctx.beginPath();
     ctx.moveTo(lastX, lastY);
     ctx.lineTo(e.offsetX, e.offsetY);
     
     
+    
     ctx.strokeStyle = colorPicker.value;
     ctx.lineWidth = brushSizeInput.value;
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
+
+
+    if (currentTool === "brush") {
+        ctx.lineTo(e.offsetX, e.offsetY);
+        ctx.stroke();
+        [lastX, lastY] = [e.offsetX, e.offsetY];
+    } 
+    else if (currentTool === "rect") {
+        drawRect(e);
+    }                                                             /*shapes */
+    else if (currentTool === "circle") {
+        drawCircle(e);
+    } 
+    else if (currentTool === "triangle") {
+        drawTriangle(e);
+    }
     
+};
+
+const drawRect = (e) => {
+    ctx.strokeRect(lastX, lastY, e.offsetX - lastX, e.offsetY - lastY);
+};
+
+const drawCircle = (e) => {
+    ctx.beginPath();
+    let radius = Math.sqrt(Math.pow((lastX - e.offsetX), 2) + Math.pow((lastY - e.offsetY), 2));
+    ctx.arc(lastX, lastY, radius, 0, 2 * Math.PI);
     ctx.stroke();
-    [lastX, lastY] = [e.offsetX, e.offsetY];
+};
+
+const drawTriangle = (e) => {
+    ctx.beginPath();
+    ctx.moveTo(lastX, lastY); 
+    ctx.lineTo(e.offsetX, e.offsetY); 
+    ctx.lineTo(lastX * 2 - e.offsetX, e.offsetY); 
+    ctx.closePath(); 
+    ctx.stroke();
 };
 
 const stopDrawing = () => {
@@ -171,4 +216,16 @@ canvas.addEventListener("mouseup", () => {
     saveHistory();
 });
 canvas.addEventListener("mouseleave", stopDrawing);
+
+
+const toolBtns = document.querySelectorAll(".tool-btn");
+
+toolBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+        document.querySelector(".tool-btn.active").classList.remove("active");
+        btn.classList.add("active");
+        currentTool = btn.id; 
+    });
+});
+
 
