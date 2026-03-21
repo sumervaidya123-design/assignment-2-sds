@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 
 :root {
-    --bg-image-dark: url("/backgroundTree.jpg");
+    --bg-image-dark: url("pictures/backgroundTree.jpg");
     --text-color-dark: #fff;
     --border-color-dark: #3a414c;
     --surface-color-dark: black;
@@ -183,14 +183,27 @@ body:fullscreen .toolbar{
     position: fixed;
     top: 50%;
     right: 1rem;
-    transform: translateY(-50%);
+    left: auto;
+    transform: translateY(50%);
     flex-direction: column;
 
 }
 
 body:fullscreen .tool-group {
     flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    overflow: visible;
+    
 }
+
+body:fullscreen .tool {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 
 body:fullscreen .tool label{
     display:none;
@@ -198,7 +211,13 @@ body:fullscreen .tool label{
 }
 
 body:fullscreen input[type="range"]{
-    transform: rotate(-90deg);
+     writing-mode: vertical-lr;  
+    direction: rtl;
+    width: 1.5rem;
+    height: 80px;
+    cursor: pointer;
+    -webkit-appearance: slider-vertical;
+
 }
 
 
@@ -207,3 +226,9 @@ body:fullscreen .brush-slider{
     flex-direction: column; 
 }
 
+body:fullscreen .top-bar{
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: auto;;
+}
