@@ -8,11 +8,11 @@
     <link rel = "stylesheet" href = "style.css" />
 </head>
 <body class ="">
-<div class = "top-bar">
+<header class = "top-bar">
 <h1>DRAWBOY</h1>
 
-<div class="toolbar">
-    <div class="tool-group">
+<menu class="toolbar">
+    <section class="tool-group">
         <div class="tool">   
            <label for="colorPicker">Color</label>
            <input type="color" id ="colorPicker" value="#000000">
@@ -21,8 +21,8 @@
             <label for="brushSize">Brushsize</label>
             <input type="range" id ="brushSize" min="1" max="100" value ="10" />
         </div>
-    </div>
-    <div class="tool-group">
+    </section>
+    <section class="tool-group">
         <button class="btn btn-icon btn-danger" id ="clearCanvas" title="Clear Canvas" >
             <i class ="fas fa-trash-alt"></i> 
         </button>
@@ -35,8 +35,8 @@
             <i class="fas fa-moon"></i>
         </button>
 
-    </div>
-    <div class="tool-group">
+    </section>
+    <section class="tool-group">
         <button class="btn tool-btn active" id="brush" title="Brush">
             <i class="fas fa-paint-brush"></i>
         </button>
@@ -53,9 +53,9 @@
     <b>▲</b>
     </button>
 
-    </div>
-  </div>
-</div>
+</section>
+</menu>
+</header>
 
 <canvas id="drawingSpace"> </canvas>
 
