@@ -1,25 +1,31 @@
-// --- 1. INITIALIZE CANVAS (New) ---
 const canvas = document.getElementById("drawingSpace");
 const ctx = canvas.getContext("2d");
 const colorPicker = document.getElementById("colorPicker");
 const brushSizeInput = document.getElementById("brushSize");
+const dayChange = document.getElementById("dayChange");
+const fullscreen = document.getElementById("fullscreen");
+const fullscreenIcon = document.getElementById("fullScreenIcon");
+const clearbutton = document.getElementById("clearCanvas");
 
 let isDrawing = false;
 let lastX = 0;
 let lastY = 0;
 
-// Set initial canvas size
+clearbutton.addEventListener("click", () => {            // FIX: clear button was never wired up
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+});
+
 const resizeCanvas = () => {
+    const imageData = ctx.getImageData(0,0, canvas.width, canvas.height);
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
+    ctx.putImageData(imageData, 0, 0);
 };
 window.addEventListener("resize", resizeCanvas);
 resizeCanvas();
 
-// --- YOUR EXISTING THEME LOGIC (Unchanged) ---
-const dayChange = document.getElementById("dayChange");
-const fullscreen = document.getElementById("fullscreen");
-const fullscreenIcon = document.getElementById("fullScreenIcon");
+
+
 
 dayChange.addEventListener("click", () => {
     document.body.classList.toggle("dark-mode");
@@ -39,7 +45,7 @@ if(localStorage.getItem("theme") === "dark-mode") {
     if(icon) icon.classList.replace("fa-moon", "fa-sun");
 }
 
-// --- YOUR EXISTING FULLSCREEN LOGIC (Unchanged) ---
+
 const toggleFullscreen = () => {
     if(!document.fullscreenElement){
         document.body.requestFullscreen().catch((err) => alert(`Error: ${err.message}`));
@@ -55,10 +61,10 @@ document.addEventListener("fullscreenchange", () => {
         fullscreenIcon.classList.toggle("fa-expand");
         fullscreenIcon.classList.toggle("fa-compress");
     }
-    resizeCanvas(); // Ensure canvas fits new screen size
+    resizeCanvas(); 
 })
 
-// --- 2. DRAWING FUNCTIONALITY (New) ---
+
 const startDrawing = (e) => {
     isDrawing = true;
     [lastX, lastY] = [e.offsetX, e.offsetY];
@@ -71,7 +77,7 @@ const draw = (e) => {
     ctx.moveTo(lastX, lastY);
     ctx.lineTo(e.offsetX, e.offsetY);
     
-    // Styling
+    
     ctx.strokeStyle = colorPicker.value;
     ctx.lineWidth = brushSizeInput.value;
     ctx.lineCap = "round";
@@ -83,10 +89,10 @@ const draw = (e) => {
 
 const stopDrawing = () => {
     isDrawing = false;
-    ctx.beginPath(); // Reset path so next line doesn't connect
+    ctx.beginPath(); 
 };
 
-// Event Listeners for the Canvas
+
 canvas.addEventListener("mousedown", startDrawing);
 canvas.addEventListener("mousemove", draw);
 canvas.addEventListener("mouseup", stopDrawing);
