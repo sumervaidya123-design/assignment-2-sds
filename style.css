@@ -1,13 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 
 :root {
-    --bg-image-dark: url("images/backgroundTree.jpg");
+    --bg-image-dark: url("/backgroundTree.jpg");
     --text-color-dark: #fff;
     --border-color-dark: #3a414c;
     --surface-color-dark: black;
 
 
-    --bg-image-light: url("images/treeInverse.jpg");
+    --bg-image-light: url("pictures/treeInverse.jpg");
     --text-color-light: #000;
     --border-color-light: #e5efff;
     --surface-color-light: white ;
