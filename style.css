@@ -216,7 +216,7 @@ body:fullscreen input[type="range"]{
     width: 1.5rem;
     height: 80px;
     cursor: pointer;
-    -webkit-appearance: slider-vertical;
+    
 
 }
 
