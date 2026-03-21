@@ -1,1 +1,64 @@
 <!DOCTYPE html>
+<html lang = "en">
+<head>
+    <meta charset = "UTF-8" />
+    <meta name ="drawing" content = "width = device - width, initial-scale = 1.0" />
+    <title>~DRAW~BOY~</title> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel = "stylesheet" href = "style.css" />
+</head>
+<body class ="">
+<div class = "top-bar">
+<h1>D R A W B O Y</h1>
+
+<div class="toolbar">
+    <div class="tool-group">
+        <div class="tool">   
+           <label for="colorPicker">Color</label>
+           <input type="color" id ="colorPicker" value="#000000">
+        </div>
+        <div class="tool">
+            <label for="brushSize">Brushsize</label>
+            <input type="range" id ="brushSize" min="1" max="100" value ="10" />
+        </div>
+    </div>
+    <div class="tool-group">
+        <button class="btn btn-icon btn-danger" id ="clearCanvas" title="Clear Canvas" >
+            <i class ="fas fa-trash-alt"></i> 
+        </button>
+
+        <button class="btn btn-icon" id="fullscreen" title="Full Screen">
+            <i class="fas fa-expand"></i>
+        </button>
+
+        <button class="btn btn-icon" id="dayChange" title="Night Mode">
+            <i class="fas fa-moon"></i>
+        </button>
+
+    </div>
+    <div class="tool-group">
+        <button class="btn tool-btn active" id="brush" title="Brush">
+            <i class="fas fa-paint-brush"></i>
+        </button>
+        
+    <button class="btn tool-btn" id="rect"title="Rectangle">
+        <i class="fas fa-square"></i>
+    </button>
+
+    <button class="btn tool-btn" id="circle"title="Circle">
+     <i class="fas fa-circle"></i>
+    </button>
+
+    <button class="btn tool-btn" id="triangle"title="Triangle">
+    <b>▲</b>
+    </button>
+
+    </div>
+  </div>
+</div>
+
+<canvas id="drawingSpace"> </canvas>
+
+    <script src ="main.js"></script> 
+</body>
+</html>
