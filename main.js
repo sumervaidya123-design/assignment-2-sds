@@ -263,7 +263,7 @@ const loadCanvas = () => {
     if (savedData) {
         const img = new Image();
         img.src = savedData;
-        img.onload = () => {
+        img.onload = () => {                                                     
             ctx.drawImage(img, 0, 0);
         };
     }
