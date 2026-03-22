@@ -37,7 +37,7 @@ const saveHistory = () => {
         historyIndex++;
     }
 
-    if(historyIndex >= history.length){
+    if(historyIndex >= history.length){                      /* save history for undo and redo function*/ 
         historyIndex = history.length -1;
     }
 };
@@ -237,7 +237,7 @@ const addRandomImage = () =>{
 addImageBtn.addEventListener("click", addRandomImage);
 
 canvas.addEventListener("mousedown", startDrawing);    
-canvas.addEventListener("mousemove", draw);
+canvas.addEventListener("mousemove", draw);           //tell the website for draiwng what to do based on mouse actions
 canvas.addEventListener("mouseup", () => {
     isDrawing = false; 
     saveHistory();
