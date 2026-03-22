@@ -225,7 +225,7 @@ const addRandomImage = () =>{
         const x = (canvas.width / 2) - (img.width / 2);
         const y = (canvas.height / 2) - (img.height / 2);
 
-        ctx.drawImage(img, x, y);
+        ctx.drawImage(img, x, y);              /*randomn image generator*/
         saveHistory(); 
         localStorage.setItem("savedDrawBoyCanvas", canvas.toDataURL());
     };
@@ -236,11 +236,13 @@ const addRandomImage = () =>{
 
 addImageBtn.addEventListener("click", addRandomImage);
 
-canvas.addEventListener("mousedown", startDrawing);
+canvas.addEventListener("mousedown", startDrawing);    
 canvas.addEventListener("mousemove", draw);
 canvas.addEventListener("mouseup", () => {
     isDrawing = false; 
     saveHistory();
+    const canvasData = canvas.toDataURL();
+    localStorage.setItem("savedDrawBoyCanvas", canvasData);
 });
 canvas.addEventListener("mouseleave", stopDrawing);
 
@@ -254,5 +256,17 @@ toolBtns.forEach(btn => {
         currentTool = btn.id; 
     });
 });
+
+const loadCanvas = () => {
+    const savedData = localStorage.getItem("savedDrawBoyCanvas");
+    
+    if (savedData) {
+        const img = new Image();
+        img.src = savedData;
+        img.onload = () => {
+            ctx.drawImage(img, 0, 0);
+        };
+    }
+};
 
 
