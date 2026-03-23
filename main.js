@@ -37,7 +37,7 @@ const saveHistory = () => {
         historyIndex++;
     }
 
-    if(historyIndex >= history.length){                      /* save history for undo and redo function*/ 
+    if(historyIndex >= history.length){                      /* save history for both undo and redo function*/ 
         historyIndex = history.length -1;
     }
 };
