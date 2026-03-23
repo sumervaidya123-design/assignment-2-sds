@@ -146,7 +146,7 @@ input[type="color"]::-webkit-color-swatch-wrapper{
     color: white;
 }
 
-#brush:hover, #rect:hover, #pencil:hover, 
+#brush:hover, #rect:hover, #spray:hover, 
 #addRandomImage:hover, #circle:hover, #triangle:hover{
     background-color: rgb(242, 218, 0);
     color: rgb(0, 0, 0);
