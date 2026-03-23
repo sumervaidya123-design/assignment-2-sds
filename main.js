@@ -22,6 +22,8 @@ let snapshot;
 
 
 
+
+
 const initHistory = () => {
     history.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
     historyIndex = 0;
@@ -153,7 +155,7 @@ const startDrawing = (e) => {
 const draw = (e) => {
     if (!isDrawing) return;
 
-    if(currentTool !== "brush"){
+    if(currentTool !== "brush" && currentTool !== "spray"){
         ctx.putImageData(snapshot, 0, 0);
     }
 
@@ -174,6 +176,19 @@ const draw = (e) => {
         ctx.stroke();
         [lastX, lastY] = [e.offsetX, e.offsetY];
     } 
+    else if (currentTool === "spray"){
+
+         for (let i = 0; i < 20; i++)   {
+        const angle = Math.random() * Math.PI * 2;
+
+        const radius = Math.random() * brushSizeInput.value;
+
+        const x = e.offsetX + radius *Math.cos(angle);
+        const y = e.offsetY + radius * Math.sin(angle);
+        ctx.fillStyle = colorPicker.value;
+        ctx.fillRect(x, y, 1.5,  1.5);
+    }
+    }
     else if (currentTool === "rect") {
         drawRect(e);
     }                                                             /*shapes */
@@ -269,4 +284,7 @@ const loadCanvas = () => {
     }
 };
 
-
+window.addEventListener("load", () => {
+    resizeCanvas();                              // retains drawing after refesh 
+    loadCanvas();
+});
