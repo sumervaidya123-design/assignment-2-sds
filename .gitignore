@@ -1,0 +1,15 @@
+
+.DS_Store
+Thumbs.db
+
+
+.vscode/
+.idea/
+*.swp
+*.log
+
+
+drawing_exports/
+
+
+node_modules/
