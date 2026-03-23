@@ -269,4 +269,7 @@ const loadCanvas = () => {
     }
 };
 
-
+window.addEventListener("load", () => {
+    resizeCanvas();
+    loadCanvas();
+});
