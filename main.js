@@ -18,6 +18,7 @@ let historyIndex = -1;
 const maxhistory = 50;
 let currentTool = "brush";
 let snapshot;
+let clickX = [], clickY = [], clickDrag = [], clickColor = [];
 
 
 
@@ -148,6 +149,14 @@ const startDrawing = (e) => {
     [lastX, lastY] = [e.offsetX, e.offsetY];
     snapshot = ctx.getImageData(0, 0, canvas.width, canvas.height);      /*drawing */
     ctx.beginPath();
+
+    if (currentTool === "pencil") {
+        clickX = []; clickY = []; clickDrag = []; clickColor = [];
+        clickX.push(e.offsetX);
+        clickY.push(e.offsetY);
+        clickDrag.push(false);
+        clickColor.push(colorPicker.value);
+    }
 };                                                      
                                                         
 const draw = (e) => {
@@ -174,6 +183,13 @@ const draw = (e) => {
         ctx.stroke();
         [lastX, lastY] = [e.offsetX, e.offsetY];
     } 
+    else if (currentTool === "pencil"){
+        clickX.push(e.offsetX);
+        clickY.push(e.offsetY);
+        clickDrag.push(true);
+        clickColor.push(colorPicker.value);
+        redrawPencil();
+    }
     else if (currentTool === "rect") {
         drawRect(e);
     }                                                             /*shapes */
@@ -205,6 +221,26 @@ const drawTriangle = (e) => {
     ctx.lineTo(lastX * 2 - e.offsetX, e.offsetY); 
     ctx.closePath(); 
     ctx.stroke();
+};
+
+const redrawPencil = () => {
+    for (let i = 0; i < clickX.length; i++) {
+        ctx.beginPath();
+        ctx.lineJoin = "round";
+        ctx.lineCap = "round";
+
+        if (clickDrag[i] && i) {
+            ctx.moveTo(clickX[i - 1], clickY[i - 1]);
+        } else {
+            ctx.moveTo(clickX[i] - 1, clickY[i]);
+        }
+
+        ctx.lineTo(clickX[i], clickY[i]);
+        ctx.closePath();
+        ctx.strokeStyle = clickColor[i];
+        ctx.lineWidth = brushSizeInput.value;
+        ctx.stroke();
+    }
 };
 
 const stopDrawing = () => {
@@ -270,6 +306,6 @@ const loadCanvas = () => {
 };
 
 window.addEventListener("load", () => {
-    resizeCanvas();
+    resizeCanvas();                              // retains drawing after refesh 
     loadCanvas();
 });
