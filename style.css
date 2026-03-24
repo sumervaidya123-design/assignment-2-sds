@@ -54,13 +54,11 @@ padding: 1.25rem;
     display: flex;
     position: relative;
     align-items: center;
-    position: relative;
-    right : 0.6rem;
     backdrop-filter: blur(0.1rem);
      border-radius: 12px;
      width: 100%;
     max-width: 56.25rem;
-    bottom : 0.6rem;
+    
     
 }
 
@@ -71,9 +69,8 @@ h1{
     font-size: 1.8rem;
     margin-top: 0;
     margin-bottom: 0.25rem;
-    text-align: left;
-    position: relative;
-    right : 4rem;
+    gap: 1.5rem;
+    
     
    
 }
@@ -162,6 +159,13 @@ input[type="color"]::-webkit-color-swatch-wrapper{
     color: rgb(0, 0, 0);
 }
 
+#brush.active, #rect.active, #spray.active, 
+#addRandomImage.active, #circle.active, #triangle.active{
+    background-color: rgb(242, 218, 0);
+    color: rgb(0, 0, 0);
+
+}
+
 #drawingSpace{
     background-color: var(--surface-color);
     cursor: crosshair;
@@ -170,8 +174,7 @@ input[type="color"]::-webkit-color-swatch-wrapper{
     border-radius: 1.2rem;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
     transition: background-color var(--transition-speed), box-shadow var(--transition-speed);
-    position: relative;
-    bottom: 0.6rem;
+   
 }
 
 body:fullscreen{
