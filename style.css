@@ -36,6 +36,8 @@ body {
 font-family: "Roboto", sans-serif;
 display: flex;
 flex-direction: column;
+overscroll-behavior: none;
+overflow: hidden;
 align-items: center;
 min-height: 100vh;
 margin: 0;
