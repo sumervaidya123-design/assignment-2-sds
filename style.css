@@ -200,7 +200,7 @@ body:fullscreen .toolbar{
     top: 50%;
     right: 1rem;
     left: auto;
-    transform: translateY(50%);
+    transform: translateY(40%);
     flex-direction: column;
 
 }
