@@ -255,12 +255,12 @@ canvas.addEventListener("pointerdown", (e) => {
     e.preventDefault();
     canvas.setPointerCapture(e.pointerId);
     startDrawing(e);
-});    
+}, { passive: false });    
 canvas.addEventListener("pointermove", (e) => {
     e.preventDefault();
     draw(e);
 
-});             //tell the website for draiwng what to do based on pointer actions
+}, { passive: false });             //tell the website for draiwng what to do based on pointer actions
 
 
 canvas.addEventListener("pointerup", () => {
