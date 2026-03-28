@@ -251,15 +251,25 @@ const addRandomImage = () =>{
 
 addImageBtn.addEventListener("click", addRandomImage);
 
-canvas.addEventListener("mousedown", startDrawing);    
-canvas.addEventListener("mousemove", draw);           //tell the website for draiwng what to do based on mouse actions
-canvas.addEventListener("mouseup", () => {
+canvas.addEventListener("pointerdown", (e) => {
+    e.preventDefault();
+    canvas.setPointerCapture(e.pointerId);
+    startDrawing(e);
+});    
+canvas.addEventListener("pointermove", (e) => {
+    e.preventDefault();
+    draw(e);
+
+});             //tell the website for draiwng what to do based on pointer actions
+
+
+canvas.addEventListener("pointerup", () => {
     isDrawing = false; 
     saveHistory();
     const canvasData = canvas.toDataURL();
     localStorage.setItem("savedDrawBoyCanvas", canvasData);
 });
-canvas.addEventListener("mouseleave", stopDrawing);
+canvas.addEventListener("pointerleave", stopDrawing);
 
 
 const toolBtns = document.querySelectorAll(".tool-btn");
