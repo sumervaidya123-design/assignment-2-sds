@@ -255,7 +255,12 @@ canvas.addEventListener("pointerdown", (e) => {
     e.preventDefault();
     canvas.setPointerCapture(e.pointerId);
     startDrawing(e);
-}, { passive: false });    
+}, { passive: false });  
+
+document.addEventListener("touchmove", (e) => {
+e.preventDefault();
+}, {passive: false});
+
 canvas.addEventListener("pointermove", (e) => {
     e.preventDefault();
     draw(e);
