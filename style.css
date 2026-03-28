@@ -246,3 +246,64 @@ body:fullscreen .top-bar{
     right: 0;
     width: auto;;
 }
+
+
+@media (max-width: 768px) {
+
+    body {
+        padding: 0.75rem;
+    }
+
+    h1 {
+        font-size: 1.2rem;
+        padding-right: 1rem;
+    }
+
+    .toolbar {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .tool-group {
+        gap: 0.5rem;
+        padding: 0.5rem 0.75rem;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .tool label {
+        display: none; 
+    }
+
+    button {
+        padding: 0.3rem 0.5rem;
+        font-size: 0.75rem;
+    }
+
+    input[type="color"] {
+        width: 1.8rem;
+        height: 1rem;
+    }
+
+    #drawingSpace {
+        width: 95vw;
+        height: 55vw;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .tool-group {
+        width: 100%;
+    }
+
+    #drawingSpace {
+        width: 98vw;
+        height: 135vw;
+    }
+
+    h1 {
+        display: none;
+    }
+}
